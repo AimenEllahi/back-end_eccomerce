@@ -21,8 +21,8 @@ const __filename = fileURLToPath(import.meta.url); //
 const __dirname = path.dirname(__filename);
 app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.json()); // for parsing application/json
-app.use(express.json()); // for parsing application/json
-app.use(express.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded
+
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(cors()); //
 
 // 👇️ "/home/john/Desktop/javascript"

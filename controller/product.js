@@ -26,7 +26,6 @@ export const getProduct = async (req, res) => {
 //to get all products
 export const getProducts = async (req, res) => {
   try {
-    console.log("hello");
     const product = await Product.find();
     res.status(200).json(product);
   } catch (err) {
@@ -62,17 +61,26 @@ export const updateProduct = async (req, res) => {
   // console.log("We are here");
   const { id } = req.params;
   const { title, desc, price } = req.body;
-  // console.log(title, desc, price);
+  console.log(title, desc, price);
+  console.log(req.body);
 
   try {
     //check if product exists
     if (!mongoose.Types.ObjectId.isValid(id))
       return res.status(404).send("product not found");
+    const product = await Product.findById(id); //find product by id
     const updatedProduct = await Product.findByIdAndUpdate(
       id,
-      { id, title, desc, price },
+      {
+        id,
+        title,
+        desc,
+        price,
+        productImage: req.file ? req.file.filename : product.productImage,
+      },
       { new: true }
     );
+    console.log(updatedProduct);
     res.json({ message: "product successfully updated" });
   } catch (err) {
     res.json({ message: err });

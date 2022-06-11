@@ -7,7 +7,6 @@ dotenv.config();
 
 async function auth(req, res, next) {
   const token = req.header("Authorization");
-  console.log(req.header);
   if (!token) return res.status(400).send("Token not provided");
   try {
     const user = jwt.verify(token, process.env.jwtPrivateKey);

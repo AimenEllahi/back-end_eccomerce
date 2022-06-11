@@ -9,8 +9,9 @@ import _ from "lodash";
 dotenv.config();
 
 export const createUser = async (req, res) => {
+  console.log("Creating User");
   const { name, email, password } = req.body;
-  console.log(name, email, password);
+
   const existingUser = await User.findOne({ email: email });
   if (existingUser)
     return res.status(400).send("User with given email already exists");
@@ -24,7 +25,7 @@ export const createUser = async (req, res) => {
 
   try {
     const savedUser = await user.save();
-    console.log(savedUser);
+
     res.json(_.pick(savedUser, ["name", "email"]));
   } catch (err) {
     res.json({ message: err });

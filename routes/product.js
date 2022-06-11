@@ -45,8 +45,8 @@ const router = express.Router();
 
 router.get("/:id", getProduct);
 router.get("/", getProducts);
-router.post("/", auth, admin, upload.single("productImage"), createProduct);
-router.patch("/:id", auth, admin, updateProduct);
+router.post("/", upload.single("productImage"), auth, admin, createProduct);
+router.patch("/:id", upload.single("productImage"), auth, admin, updateProduct);
 router.delete("/:id", auth, admin, deleteProduct);
 router.get("/image/:id", getImage);
 
